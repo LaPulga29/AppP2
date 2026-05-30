@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppP2.Views.RegisterPage"
+             Title="Registro de Usuario"
+             BackgroundColor="#F0F4F8">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="30" VerticalOptions="Center">
+
+            <Label Text="Crear Cuenta" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#2C3E50"/>
+
+            <Entry x:Name="NameEntry" Placeholder="Nombre completo" FontSize="16"/>
+            <Entry x:Name="EmailEntry" Placeholder="Correo electrónico" Keyboard="Email" FontSize="16"/>
+            <Entry x:Name="PasswordEntry" Placeholder="Contraseña" IsPassword="True" FontSize="16"/>
+            <Entry x:Name="ConfirmPasswordEntry" Placeholder="Confirmar contraseña" IsPassword="True" FontSize="16"/>
+
+            <Button Text="Registrarse" BackgroundColor="#27AE60" TextColor="White" CornerRadius="10" HeightRequest="50" Clicked="OnRegisterClicked"/>
+
+            <Label x:Name="MessageLabel" IsVisible="False" HorizontalOptions="Center"/>
+
+            <Button Text="Volver al Login" BackgroundColor="Transparent" TextColor="#3498DB" Clicked="OnBackToLoginClicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

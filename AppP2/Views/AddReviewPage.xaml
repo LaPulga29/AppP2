@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppP2.Views.AddReviewPage"
+             Title="Agregar Reseña"
+             BackgroundColor="#F0F4F8">
+
+    <VerticalStackLayout Spacing="15" Padding="20" VerticalOptions="Center">
+
+        <Label x:Name="ProfessorNameLabel" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#2C3E50"/>
+
+        <Label Text="Calificación:" FontSize="16"/>
+        <Picker x:Name="RatingPicker" Title="Selecciona una calificación">
+            <Picker.Items>
+                <x:String>⭐ 1 - Muy Malo</x:String>
+                <x:String>⭐⭐ 2 - Malo</x:String>
+                <x:String>⭐⭐⭐ 3 - Regular</x:String>
+                <x:String>⭐⭐⭐⭐ 4 - Bueno</x:String>
+                <x:String>⭐⭐⭐⭐⭐ 5 - Excelente</x:String>
+            </Picker.Items>
+        </Picker>
+
+        <Label Text="Comentario:" FontSize="16"/>
+        <Editor x:Name="CommentEditor" HeightRequest="150" Placeholder="Escribe tu experiencia con este profesor..." AutoSize="TextChanges"/>
+
+        <Button Text="Enviar Reseña" BackgroundColor="#3498DB" TextColor="White" CornerRadius="10" HeightRequest="50" Clicked="OnSubmitReviewClicked"/>
+
+        <Label x:Name="MessageLabel" IsVisible="False" HorizontalOptions="Center"/>
+
+    </VerticalStackLayout>
+</ContentPage>

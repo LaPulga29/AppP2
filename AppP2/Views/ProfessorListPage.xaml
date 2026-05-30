@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppP2.Views.ProfessorListPage"
+             Title="Lista de Profesores"
+             BackgroundColor="#F0F4F8">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <VerticalStackLayout Grid.Row="0" Padding="10" Spacing="5">
+            <Label Text="Filtros (En desarrollo)" FontAttributes="Bold" TextColor="Gray"/>
+            <Entry x:Name="SearchEntry" Placeholder="Buscar por nombre"/>
+        </VerticalStackLayout>
+
+        <CollectionView x:Name="ProfessorsCollectionView" Grid.Row="1" SelectionMode="Single" SelectionChanged="OnProfessorSelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <!-- Reemplazar Frame con Border -->
+                    <Border StrokeThickness="0" BackgroundColor="White" Margin="10" Padding="10" StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" TextColor="#2C3E50"/>
+                            <Label Text="Materia: {Binding Subject}" FontSize="14" TextColor="#7F8C8D"/>
+                            <Label Text="Facultad: {Binding Faculty}" FontSize="14" TextColor="#7F8C8D"/>
+                            <StackLayout Orientation="Horizontal" Spacing="5">
+                                <Label Text="⭐" FontSize="14"/>
+                                <Label Text="{Binding AverageRating, StringFormat='{0:F1}/5'}" FontSize="14" TextColor="#F39C12"/>
+                            </StackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>
