@@ -2,30 +2,73 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppP2.Views.AddReviewPage"
-             Title="Agregar Reseña"
-             BackgroundColor="#F0F4F8">
+             Title="Agregar Reseña">
 
-    <VerticalStackLayout Spacing="15" Padding="20" VerticalOptions="Center">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
 
-        <Label x:Name="ProfessorNameLabel" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#2C3E50"/>
+            <!-- Información del Profesor -->
+            <Frame Padding="15" BackgroundColor="#E3F2FD" CornerRadius="10">
+                <StackLayout Spacing="5">
+                    <Label Text="📝 Calificando a:" FontSize="14" TextColor="Gray"/>
+                    <Label x:Name="ProfessorNameLabel" FontSize="18" FontAttributes="Bold"/>
+                    <Label x:Name="SubjectLabel" FontSize="14" TextColor="Gray"/>
+                </StackLayout>
+            </Frame>
 
-        <Label Text="Calificación:" FontSize="16"/>
-        <Picker x:Name="RatingPicker" Title="Selecciona una calificación">
-            <Picker.Items>
-                <x:String>⭐ 1 - Muy Malo</x:String>
-                <x:String>⭐⭐ 2 - Malo</x:String>
-                <x:String>⭐⭐⭐ 3 - Regular</x:String>
-                <x:String>⭐⭐⭐⭐ 4 - Bueno</x:String>
-                <x:String>⭐⭐⭐⭐⭐ 5 - Excelente</x:String>
-            </Picker.Items>
-        </Picker>
+            <!-- Selección de Calificación -->
+            <Label Text="Selecciona tu calificación" FontSize="16" FontAttributes="Bold" Margin="0,10,0,5"/>
 
-        <Label Text="Comentario:" FontSize="16"/>
-        <Editor x:Name="CommentEditor" HeightRequest="150" Placeholder="Escribe tu experiencia con este profesor..." AutoSize="TextChanges"/>
+            <StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="Center">
+                <Button x:Name="Star1" Text="☆" FontSize="30" Clicked="OnStarClicked" ClassId="1" BackgroundColor="Transparent"/>
+                <Button x:Name="Star2" Text="☆" FontSize="30" Clicked="OnStarClicked" ClassId="2" BackgroundColor="Transparent"/>
+                <Button x:Name="Star3" Text="☆" FontSize="30" Clicked="OnStarClicked" ClassId="3" BackgroundColor="Transparent"/>
+                <Button x:Name="Star4" Text="☆" FontSize="30" Clicked="OnStarClicked" ClassId="4" BackgroundColor="Transparent"/>
+                <Button x:Name="Star5" Text="☆" FontSize="30" Clicked="OnStarClicked" ClassId="5" BackgroundColor="Transparent"/>
+            </StackLayout>
 
-        <Button Text="Enviar Reseña" BackgroundColor="#3498DB" TextColor="White" CornerRadius="10" HeightRequest="50" Clicked="OnSubmitReviewClicked"/>
+            <Label x:Name="RatingLabel" Text="Selecciona una calificación" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
 
-        <Label x:Name="MessageLabel" IsVisible="False" HorizontalOptions="Center"/>
+            <!-- Descripciones -->
+            <StackLayout Spacing="2" HorizontalOptions="Center">
+                <Label Text="★ 1 - Muy Malo" FontSize="12" TextColor="Gray"/>
+                <Label Text="★★ 2 - Malo" FontSize="12" TextColor="Gray"/>
+                <Label Text="★★★ 3 - Regular" FontSize="12" TextColor="Gray"/>
+                <Label Text="★★★★ 4 - Bueno" FontSize="12" TextColor="Gray"/>
+                <Label Text="★★★★★ 5 - Excelente" FontSize="12" TextColor="Gray"/>
+            </StackLayout>
 
-    </VerticalStackLayout>
+            <!-- Comentario -->
+            <Label Text="Comentario" FontSize="16" FontAttributes="Bold" Margin="0,10,0,5"/>
+
+            <Editor x:Name="CommentEditor" 
+                    Placeholder="Escribe tu opinión sobre el profesor..."
+                    HeightRequest="150"
+                    BackgroundColor="#F5F5F5"/>
+
+            <!-- Botones -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,20,0,0">
+                <Button Grid.Column="0" 
+                        Text="Cancelar" 
+                        BackgroundColor="#FF5722"
+                        TextColor="White"
+                        CornerRadius="10"
+                        Clicked="OnCancelClicked"/>
+
+                <Button Grid.Column="1" 
+                        Text="Enviar Reseña" 
+                        x:Name="SubmitButton"
+                        BackgroundColor="#4CAF50"
+                        TextColor="White"
+                        CornerRadius="10"
+                        Clicked="OnSubmitClicked"/>
+            </Grid>
+
+            <Label x:Name="ValidationMessage" 
+                   TextColor="Red" 
+                   FontSize="14"
+                   HorizontalOptions="Center"
+                   IsVisible="False"/>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

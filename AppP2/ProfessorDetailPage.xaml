@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppP2.Views.ProfessorDetailPage"
+             Title="Detalles del Profesor">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+
+            <!-- Información del Profesor -->
+            <Frame Padding="15" BackgroundColor="#F5F5F5" CornerRadius="10">
+                <StackLayout Spacing="8">
+                    <Label x:Name="ProfessorNameLabel" 
+                           FontSize="24" 
+                           FontAttributes="Bold"/>
+
+                    <Label x:Name="SubjectLabel" 
+                           FontSize="16"
+                           TextColor="Gray"/>
+
+                    <Label x:Name="FacultyLabel" 
+                           FontSize="14"
+                           TextColor="Gray"/>
+
+                    <Label x:Name="BioLabel" 
+                           FontSize="14"/>
+
+                    <StackLayout Orientation="Horizontal" Spacing="5" Margin="0,10,0,0">
+                        <Label Text="Calificación Promedio:" FontSize="16"/>
+                        <Label x:Name="StarsLabel" FontSize="20" Text="⭐"/>
+                        <Label x:Name="AverageRatingLabel" 
+                               FontSize="16" 
+                               FontAttributes="Bold"/>
+                    </StackLayout>
+
+                    <Label x:Name="ReviewsCountLabel" 
+                           FontSize="14"
+                           TextColor="Gray"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Botón Agregar Reseña -->
+            <Button Text="✏️ Agregar Reseña" 
+                    x:Name="AddReviewButton"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    FontSize="16"
+                    CornerRadius="10"
+                    Clicked="AddReviewButton_Clicked"/>
+
+            <!-- Lista de Reseñas -->
+            <Label Text="Reseñas de Estudiantes" 
+                   FontSize="18" 
+                   FontAttributes="Bold"
+                   Margin="0,10,0,5"/>
+
+            <CollectionView x:Name="ReviewsCollectionView"
+                            ItemsSource="{Binding Reviews}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="0,5" BorderColor="#E0E0E0" CornerRadius="8">
+                            <StackLayout Spacing="5">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding UserName}"
+                                           FontAttributes="Bold"
+                                           FontSize="14"/>
+
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
+                                           FontSize="12"
+                                           TextColor="Gray"/>
+                                </Grid>
+
+                                <Label Text="{Binding Rating, Converter={StaticResource StarsConverter}}"
+                                       FontSize="16"/>
+
+                                <Label Text="{Binding Comment}"
+                                       FontSize="14"/>
+
+                                <Button Text="🗑️ Eliminar"
+                                        BackgroundColor="#FF5722"
+                                        TextColor="White"
+                                        FontSize="12"
+                                        CornerRadius="5"
+                                        IsVisible="{Binding IsOwnReview}"
+                                        CommandParameter="{Binding Id}"
+                                        Clicked="DeleteReview_Clicked"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label x:Name="NoReviewsLabel"
+                   Text="No hay reseñas para este profesor aún."
+                   FontSize="14"
+                   TextColor="Gray"
+                   HorizontalOptions="Center"
+                   IsVisible="False"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

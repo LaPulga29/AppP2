@@ -2,34 +2,129 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppP2.Views.ProfessorListPage"
-             Title="Lista de Profesores"
-             BackgroundColor="#F0F4F8">
+             Title="Lista de Profesores">
 
-    <Grid RowDefinitions="Auto, *">
+    <Grid RowDefinitions="Auto,Auto,*">
 
-        <VerticalStackLayout Grid.Row="0" Padding="10" Spacing="5">
-            <Label Text="Filtros (En desarrollo)" FontAttributes="Bold" TextColor="Gray"/>
-            <Entry x:Name="SearchEntry" Placeholder="Buscar por nombre"/>
-        </VerticalStackLayout>
+        <!-- Barra de búsqueda -->
+        <Grid Grid.Row="0" Padding="10" BackgroundColor="#F0F0F0">
+            <Grid ColumnDefinitions="*,Auto">
+                <Entry x:Name="SearchEntry" 
+                       Placeholder="Buscar profesor por nombre..."
+                       TextChanged="OnSearchTextChanged"
+                       Grid.Column="0"
+                       Margin="0,0,10,0"/>
 
-        <CollectionView x:Name="ProfessorsCollectionView" Grid.Row="1" SelectionMode="Single" SelectionChanged="OnProfessorSelected">
+                <Button Text="🔍 Buscar" 
+                        Clicked="OnSearchClicked"
+                        Grid.Column="1"/>
+            </Grid>
+        </Grid>
+
+        <!-- Botones de filtros -->
+        <Grid Grid.Row="1" Padding="10" ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto">
+            <Button Text="🏛️ Por Facultad" 
+                    Clicked="OnFilterByFacultyClicked"
+                    Grid.Row="0" Grid.Column="0"
+                    Margin="5"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"/>
+
+            <Button Text="📚 Por Materia" 
+                    Clicked="OnFilterBySubjectClicked"
+                    Grid.Row="0" Grid.Column="1"
+                    Margin="5"
+                    BackgroundColor="#2196F3"
+                    TextColor="White"/>
+
+            <Button Text="🔄 Mostrar Todos" 
+                    Clicked="OnShowAllClicked"
+                    Grid.Row="0" Grid.Column="2"
+                    Margin="5"
+                    BackgroundColor="#FF9800"
+                    TextColor="White"/>
+
+            <Picker x:Name="FacultyPicker" 
+                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                    Title="Selecciona una facultad"
+                    Margin="5"
+                    IsVisible="False"
+                    SelectedIndexChanged="OnFacultyPickerChanged"/>
+
+            <Picker x:Name="SubjectPicker" 
+                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                    Title="Selecciona una materia"
+                    Margin="5"
+                    IsVisible="False"
+                    IsEnabled="False"/>
+
+            <Button Text="✅ Aplicar Filtro" 
+                    x:Name="ApplyFilterButton"
+                    Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                    Margin="5"
+                    BackgroundColor="#9C27B0"
+                    TextColor="White"
+                    IsVisible="False"
+                    Clicked="OnApplyFilterClicked"/>
+        </Grid>
+
+        <!-- Lista de profesores -->
+        <CollectionView Grid.Row="2" 
+                        x:Name="ProfessorsCollectionView"
+                        ItemsSource="{Binding Professors}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnProfessorSelected">
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <!-- Reemplazar Frame con Border -->
-                    <Border StrokeThickness="0" BackgroundColor="White" Margin="10" Padding="10" StrokeShape="RoundRectangle 10">
-                        <VerticalStackLayout Spacing="5">
-                            <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" TextColor="#2C3E50"/>
-                            <Label Text="Materia: {Binding Subject}" FontSize="14" TextColor="#7F8C8D"/>
-                            <Label Text="Facultad: {Binding Faculty}" FontSize="14" TextColor="#7F8C8D"/>
-                            <StackLayout Orientation="Horizontal" Spacing="5">
-                                <Label Text="⭐" FontSize="14"/>
-                                <Label Text="{Binding AverageRating, StringFormat='{0:F1}/5'}" FontSize="14" TextColor="#F39C12"/>
-                            </StackLayout>
-                        </VerticalStackLayout>
-                    </Border>
+                    <Grid>
+                        <Frame Margin="10,5" Padding="10" BorderColor="#E0E0E0" CornerRadius="10">
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto">
+                                <Label Text="{Binding Name}" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold"
+                                       Grid.Row="0"/>
+
+                                <Label Text="{Binding Subject}" 
+                                       Grid.Row="1"
+                                       FontSize="14"
+                                       TextColor="Gray"/>
+
+                                <Label Text="{Binding Faculty}" 
+                                       Grid.Row="2"
+                                       FontSize="12"
+                                       TextColor="#666"/>
+
+                                <StackLayout Grid.Row="3" 
+                                             Orientation="Horizontal"
+                                             Spacing="5">
+                                    <Label Text="⭐" FontSize="16"/>
+                                    <Label Text="{Binding AverageRating, StringFormat='{0:F1}'}" 
+                                           FontSize="16"/>
+                                    <Label Text="|" TextColor="Gray"/>
+                                    <Label Text="{Binding Reviews.Count, StringFormat='{0} reseñas'}" 
+                                           FontSize="14"
+                                           TextColor="Gray"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                        <!-- Botón Eliminar (esquina superior derecha) -->
+                        <Button Text="✕" 
+                                BackgroundColor="#FF5722"
+                                TextColor="White"
+                                CornerRadius="15"
+                                WidthRequest="30"
+                                HeightRequest="30"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                HorizontalOptions="End"
+                                VerticalOptions="Start"
+                                Margin="0,5,15,0"
+                                CommandParameter="{Binding Id}"
+                                Clicked="OnDeleteProfessorClicked"/>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
     </Grid>
 </ContentPage>

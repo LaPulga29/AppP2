@@ -1,10 +1,8 @@
 ﻿using SQLite;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppP2.Models
 {
-    [SQLite.Table("Reviews")]
+    [Table("Reviews")]
     public class Review
     {
         [PrimaryKey, AutoIncrement]
@@ -12,14 +10,22 @@ namespace AppP2.Models
 
         public int ProfessorId { get; set; }
 
-        [SQLite.MaxLength(100)]
-        public string UserEmail { get; set; }
+        public int UserId { get; set; }
 
         public int Rating { get; set; } // 1-5
 
-        [SQLite.MaxLength(500)]
-        public string Comment { get; set; }
+        [MaxLength(1000)]
+        public string Comment { get; set; } = string.Empty;
 
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
+
+        [Ignore]
+        public string UserName { get; set; } = string.Empty;
+
+        [Ignore]
+        public string ProfessorName { get; set; } = string.Empty;
+
+        [Ignore]
+        public bool IsOwnReview { get; set; }
     }
 }

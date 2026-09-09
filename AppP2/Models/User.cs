@@ -10,14 +10,20 @@ namespace AppP2.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        [SQLite.MaxLength(50)]
-        public string Name { get; set; }
+        [SQLite.MaxLength(100)]
+        public string FullName { get; set; } = string.Empty;
 
+        [SQLite.MaxLength(100)]
         [Unique]
-        [SQLite.MaxLength(100)]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [SQLite.MaxLength(100)]
-        public string Password { get; set; }
+        public string Password { get; set; } = string.Empty;
+
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
+
+        [Ignore]
+        public List<Review> Reviews { get; set; } = new List<Review>();
+        public string Name { get; internal set; }
     }
 }

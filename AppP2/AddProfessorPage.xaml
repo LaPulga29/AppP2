@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppP2.Views.AddProfessorPage"
+             Title="Agregar Profesor">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+
+            <!-- Título -->
+            <Label Text="📝 Agregar Nuevo Profesor" 
+                   FontSize="24" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,10"/>
+
+            <!-- Nombre del Profesor -->
+            <Label Text="Nombre del Profesor" 
+                   FontSize="16" 
+                   FontAttributes="Bold"
+                   Margin="0,10,0,5"/>
+
+            <Entry x:Name="NameEntry" 
+                   Placeholder="Ej: Dr. Juan Pérez"
+                   FontSize="16"/>
+
+            <!-- Facultad - Picker Principal -->
+            <Label Text="Facultad" 
+                   FontSize="16" 
+                   FontAttributes="Bold"
+                   Margin="0,10,0,5"/>
+
+            <Picker x:Name="FacultyPicker" 
+                    Title="Selecciona una facultad"
+                    FontSize="16"
+                    SelectedIndexChanged="OnFacultyPickerChanged"/>
+
+            <!-- Materia -->
+            <Label Text="Materia" 
+                   FontSize="16" 
+                   FontAttributes="Bold"
+                   Margin="0,10,0,5"/>
+
+            <Picker x:Name="SubjectPicker" 
+                    Title="Selecciona una materia"
+                    FontSize="16"
+                    IsEnabled="False"/>
+
+            <!-- Biografía (Opcional) -->
+            <Label Text="Biografía (Opcional)" 
+                   FontSize="16" 
+                   FontAttributes="Bold"
+                   Margin="0,10,0,5"/>
+
+            <Editor x:Name="BioEditor" 
+                    Placeholder="Escribe una breve biografía del profesor..."
+                    HeightRequest="100"
+                    BackgroundColor="#F5F5F5"/>
+
+            <!-- Botones -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,20,0,0">
+                <Button Grid.Column="0" 
+                        Text="Cancelar" 
+                        BackgroundColor="#FF5722"
+                        TextColor="White"
+                        CornerRadius="10"
+                        Clicked="OnCancelClicked"/>
+
+                <Button Grid.Column="1" 
+                        Text="Guardar Profesor" 
+                        x:Name="SaveButton"
+                        BackgroundColor="#4CAF50"
+                        TextColor="White"
+                        CornerRadius="10"
+                        Clicked="OnSaveClicked"/>
+            </Grid>
+
+            <!-- Mensaje de validación -->
+            <Label x:Name="ValidationMessage" 
+                   TextColor="Red" 
+                   FontSize="14"
+                   HorizontalOptions="Center"
+                   IsVisible="False"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

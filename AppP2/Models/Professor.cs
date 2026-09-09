@@ -1,24 +1,29 @@
 ﻿using SQLite;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppP2.Models
 {
-    [SQLite.Table("Professors")]
+    [Table("Professors")]
     public class Professor
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        [SQLite.MaxLength(100)]
-        public string Name { get; set; }
+        [MaxLength(100)]
+        public string Name { get; set; } = string.Empty;
 
-        [SQLite.MaxLength(50)]
-        public string Subject { get; set; }
+        [MaxLength(100)]
+        public string Subject { get; set; } = string.Empty;
 
-        [SQLite.MaxLength(50)]
-        public string Faculty { get; set; }
+        [MaxLength(100)]
+        public string Faculty { get; set; } = string.Empty;
 
+        [MaxLength(500)]
+        public string? Bio { get; set; }
+
+        [Ignore]
         public double AverageRating { get; set; }
+
+        [Ignore]
+        public List<Review> Reviews { get; set; } = new List<Review>();
     }
 }
